@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>SpringProject</artifactId>
+	<artifactId>barber-booking-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>SpringProject</name>
-	<description>Some SpringProject</description>
+	<name>Barber Booking API</name>
+	<description>REST API for the Barber Booking application</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
