@@ -6,6 +6,7 @@ import com.example.SpringProject.repository.OwnerRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import com.example.SpringProject.clients.Owner;
@@ -21,9 +22,13 @@ public class OwnerController {
     @Autowired
     private OwnerRepository ownerRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @PostMapping("")
     public void createOwner(@Valid @RequestBody Owner owner)
     {
+        owner.setPassword(passwordEncoder.encode(owner.getPassword()));
         ownerRepository.save(owner);
     }
 
@@ -38,7 +43,7 @@ public class OwnerController {
 
 
             Owner owner = optionalOwner.get();
-            return (owner.getPassword()).equals(loginRequest.getPassword());
+            return loginRequest.getPassword() != null && passwordEncoder.matches(loginRequest.getPassword(), owner.getPassword());
 
         }}
 

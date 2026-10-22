@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -25,11 +26,13 @@ import java.util.Optional;
 public class ClientController {
 
     private final ClientRepository clientRepository;
+    private final PasswordEncoder passwordEncoder;
     @Autowired // Spring weiß, dass das eine Klasse (Bean) existiert im ApplicationContext und fügt diese automatisch ein.
     // Inversion of Control
-    public ClientController(ClientRepository clientRepository)
+    public ClientController(ClientRepository clientRepository, PasswordEncoder passwordEncoder)
     {
         this.clientRepository = clientRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @PostMapping("") // RequestBody -> Informationen im Body werden gelesen und wird in das Java Object Client konvertiert
@@ -40,6 +43,9 @@ public class ClientController {
         {
             throw new DuplicateEntryException("Email already exists.");
         } else {
+            // Guests book without a password; only real passwords are hashed and stored.
+            String rawPassword = client.getPassword();
+            client.setPassword(rawPassword == null || rawPassword.isEmpty() ? null : passwordEncoder.encode(rawPassword));
             Client savedClient =  clientRepository.save(client);
             Map<String, Object> response = new HashMap<>();
             response.put("message", "The appointment was booked for the client.");
@@ -124,7 +130,7 @@ public class ClientController {
 
 
         Client client = optionalClient.get();
-        if((client.getPassword()).equals(loginRequest.getPassword()))
+        if(passwordMatches(loginRequest.getPassword(), client.getPassword()))
         {
             return true;
         }
@@ -146,7 +152,7 @@ public class ClientController {
 
 
         Client client = optionalClient.get();
-        if((client.getPassword()).equals(loginRequest.getPassword()))
+        if(passwordMatches(loginRequest.getPassword(), client.getPassword()))
         {
             return client;
         }
@@ -155,5 +161,10 @@ public class ClientController {
 
     }
 
+
+    private boolean passwordMatches(String rawPassword, String passwordHash)
+    {
+        return rawPassword != null && passwordHash != null && passwordEncoder.matches(rawPassword, passwordHash);
+    }
 
 }

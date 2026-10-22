@@ -123,5 +123,14 @@ class AppointmentControllerTest {
 
     }
 
+    @Test
+    void testAppointmentResponsesContainNoClientPassword()
+    {
+        TestRestTemplate testRestTemplate = new TestRestTemplate();
+        ResponseEntity<String> response = testRestTemplate.getForEntity("http://localhost:8080/appointments", String.class);
+        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
+        Assertions.assertTrue(response.getBody().contains(clientName));
+        Assertions.assertFalse(response.getBody().contains("password"));
+    }
 
 }

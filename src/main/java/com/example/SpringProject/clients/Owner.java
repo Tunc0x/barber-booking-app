@@ -1,6 +1,7 @@
 package com.example.SpringProject.clients;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -16,9 +17,11 @@ public class Owner {
     private Long id;
 
     @Email(message = "Please provide a valid email address")
-    @NotBlank(message = "Email Adress may not be blank")
+    @NotBlank(message = "Email Address may not be blank")
     private String email;
 
+    @NotBlank(message = "Password may not be blank")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     public String getPassword() {
