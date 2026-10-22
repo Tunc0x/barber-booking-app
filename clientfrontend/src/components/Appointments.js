@@ -107,7 +107,7 @@ export default function Appointments({appointments, setAppointments, ownerAccess
                 <TableCell><b>Date</b></TableCell>
                 <TableCell><b>Name</b></TableCell>
                 <TableCell><b>Age</b></TableCell>
-                <TableCell><b>Email Adress</b></TableCell>
+                <TableCell><b>Email Address</b></TableCell>
                 <TableCell ><b>Phone Number</b></TableCell>
                 <TableCell><b>Barber</b></TableCell>
               </TableRow>

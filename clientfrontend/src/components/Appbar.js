@@ -99,7 +99,7 @@ export default function Appbar() {
             <MenuIcon onClick={handleMenuIconClick} />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Barber apppointment
+            Barber appointment
           </Typography>
 
 

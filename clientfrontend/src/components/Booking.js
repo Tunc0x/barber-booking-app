@@ -135,7 +135,7 @@ export default function Booking({ activeBarber, appointments, setAppointments, s
                 <Grid item xs={12}>
                     <TextField onBlur={() => handleBlur("email")}
                         id="outlined-basic"
-                        label="Email Adress"
+                        label="Email Address"
                         variant="outlined"
                         fullWidth
                         value={email}

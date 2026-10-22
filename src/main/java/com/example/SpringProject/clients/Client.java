@@ -1,5 +1,6 @@
 package com.example.SpringProject.clients;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import org.antlr.v4.runtime.misc.NotNull;
@@ -25,8 +26,10 @@ public class Client {
     private int age;
 
     @Email(message = "Please provide a valid email address")
-    @NotBlank(message = "Email Adress may not be blank")
+    @NotBlank(message = "Email Address may not be blank")
     private String email;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     //  private LocalDateTime appointmentDateTime;
