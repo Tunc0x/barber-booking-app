@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Link from '@mui/material/Link';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -27,10 +26,6 @@ function createData(id, date, name, shipTo, paymentMethod, amount) {
 }
 
 
-
-function preventDefault(event) {
-  event.preventDefault();
-}
 
 
 
@@ -133,11 +128,6 @@ export default function Appointments({appointments, setAppointments, ownerAccess
               })}
             </TableBody>
           </Table>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
-              See more orders
-            </Link>
-          </div>
         </React.Fragment>
 
         {/*clients.map(client => (
