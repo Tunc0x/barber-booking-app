@@ -66,6 +66,10 @@ export default function Appbar() {
 
 
 
+  // Only a signed-in client has account details to pre-fill the booking form.
+  // The owner login carries no client account, so the owner books like a guest.
+  const isClientLoggedIn = isLoggedIn && !showDeleteButton;
+
   const handleMenuIconClick = () => {
     if (showSignIn === true) {
       setShowSignIn(false);
@@ -115,7 +119,7 @@ export default function Appbar() {
       </AppBar>
 
       {showSignIn && <SignIn onLoginSubmit={handleLoginSubmitClick} onSignUpClick={handleSignUpClick} />}
-      {showClient && <Client showDeleteButton={showDeleteButton} setShowDeleteButton={setShowDeleteButton} isLoggedIn={isLoggedIn} loggedInAccount={loggedInAccount} />}
+      {showClient && <Client showDeleteButton={showDeleteButton} setShowDeleteButton={setShowDeleteButton} isLoggedIn={isClientLoggedIn} loggedInAccount={loggedInAccount} />}
       {showSignUp && <SignUp onLoginClick={handleLoginClick} />}
 
 
